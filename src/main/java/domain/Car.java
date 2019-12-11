@@ -21,7 +21,16 @@ public class Car {
         this.name = name;
         this.position = randomStep();
     }
+    
+    public String move() {
+    	String step = "";
+    	for (int i = 0; i < position; i++) {
+			step += "-";
+		}
+    	return step;
+    }
 
+    
     private int randomStep() {
     	return (int)(Math.random() * MAX_STEP);
     }
