@@ -4,9 +4,9 @@ import java.util.Scanner;
 /**
  * @ClassName InputCar
  * 
- * @Version 1.0.0
+ * @Version 2.0.0
  * 
- * @Date 20191210
+ * @Date 20191212
  * 
  * @author asqwklop12
  * 
@@ -16,7 +16,6 @@ import java.util.Scanner;
 public class InputCar {
 
 	static final Scanner SCANNER = new Scanner(System.in);
-	private static int COUNT = 3;
 	private String carNames;
 	
 	public InputCar() {
@@ -29,4 +28,14 @@ public class InputCar {
 		return carNames.split(",");
 	}
 	
+	public Car[] generate(String[] cars) {
+		int count = cars.length;
+		Car[] car = new Car[count]; 
+		for (int i = 0; i < cars.length; i++) {
+			car[i] = new Car(cars[i]);
+		}
+		
+		return car;
+	}
+	 
 } 
