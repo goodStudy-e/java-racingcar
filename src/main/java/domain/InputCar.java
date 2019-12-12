@@ -20,17 +20,9 @@ public class InputCar {
 	private String carNames;
 	
 	public InputCar() {
-	 this.carNames = setName();
-	 System.out.println("ÇöÀç Â÷ ÀÌ¸§ : "+this.carNames);
-	}
-	
-	private String setName() {
-		String name = "";
-		for (int i = 0; i < COUNT-1; i++) {
-			name+=(SCANNER.next()+",");
-		}
-		name += SCANNER.next();
-		return name;
+	 System.out.print("ì°¨ì´ë¦„ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”: ");
+	 this.carNames = SCANNER.next();
+	 System.out.println("ì „ì²´ ì°¨ ëª… : "+this.carNames);
 	}
 	
 	public String[] toArray() {
