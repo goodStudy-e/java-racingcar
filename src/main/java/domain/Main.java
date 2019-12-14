@@ -2,7 +2,6 @@
  * Copyright (c) 2019 Gyeonglok Kim
  * All rights reserved.
  */
-
 package domain;
 
 /**

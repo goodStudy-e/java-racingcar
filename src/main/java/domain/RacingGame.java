@@ -2,11 +2,9 @@
  * Copyright (c) 2019 Gyeonglok Kim
  * All rights reserved.
  */
-
 package domain;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -20,14 +18,18 @@ import java.util.Scanner;
 public class RacingGame {
     private int carNumber;
     private ArrayList<Car> carList;
+    private final int MAX_TIMESTEP = 5;
+    private final int LIMIT_CARNUMBER = 2;
 
+    /**
+     * 자동차경주를 시작하는 메서드
+     */
     public void playRacingGame() {
-
         Scanner input = new Scanner(System.in);
+        carList = new ArrayList<>();
 
         inputCarNumber(input);
 
-        carList = new ArrayList<>();
         /** 차량의 이름을 입력받아 각 차량 객체를 만들어서 carList에 저장함 */
         while (carList.size() < carNumber) {
             inputCarName(input);
@@ -35,9 +37,7 @@ public class RacingGame {
 
         nextFiveTimeStep();
 
-        int maxPosition = getMaxPosition();
-
-        printWinner(maxPosition);
+        printWinner(getMaxPosition());
 
     }
 
@@ -45,7 +45,7 @@ public class RacingGame {
      * 5 개의 타임 스탭을 진행하는 메서드
      */
     private void nextFiveTimeStep() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < MAX_TIMESTEP; i++) {
             System.out.println((i + 1) + "time");
             playOneTime();
         }
@@ -56,7 +56,7 @@ public class RacingGame {
      * @param input
      */
     private void inputCarNumber(Scanner input) {
-        while (carNumber < 2) {
+        while (carNumber < LIMIT_CARNUMBER) {
             System.out.println("차량의 갯수를 입력하세요: ");
             carNumber = input.nextInt();
             carNumberErrorMessage();
@@ -69,12 +69,16 @@ public class RacingGame {
     private void carNumberErrorMessage() {
         if (carNumber < 0) {
             System.out.println("양의 정수를 입력해주세요!");
+            return;
+        }
+
+        if (carNumber < LIMIT_CARNUMBER) {
+            System.out.println("2이상의 수를 입력해주세요!");
         }
     }
 
     /**
      * Car 객체의 생성자를 입력받아 생성하는 메서드
-     *
      * @param sc
      */
     private void inputCarName(Scanner sc) {
@@ -87,15 +91,14 @@ public class RacingGame {
      * 1 step 타임 실행하는 메서드
      */
     private void playOneTime() {
-        for (int j = 0; j < carList.size(); j++) {
-            carList.get(j).play();
-            carList.get(j).printCurrentPosition();
+        for (Car car : carList) {
+            car.play();
+            car.printCurrentPosition();
         }
     }
 
     /**
      * 가장 멀리간 차의 위치를 찾는 메서드
-     *
      * @return
      */
     private int getMaxPosition() {
@@ -105,9 +108,12 @@ public class RacingGame {
                 .getAsInt();
     }
 
+    /**
+     * 우승한 차량을 출력해주는 메서드
+     * @param maxPosition
+     */
     private void printWinner(int maxPosition) {
         System.out.print("우승한 차량: ");
-
         carList.stream()
                 .filter(n -> n.getPosition() == maxPosition)
                 .map(Car::getName)
