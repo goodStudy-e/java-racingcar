@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class RacingGame {
     private int carNumber;
-    private ArrayList<Car> carList;
+    private static ArrayList<Car> carList;
     private final int MAX_TIMESTEP = 5;
     private final int LIMIT_CARNUMBER = 2;
 
@@ -26,10 +26,10 @@ public class RacingGame {
      */
     public void playRacingGame() {
         Scanner input = new Scanner(System.in);
-        carList = new ArrayList<>();
 
         inputCarNumber(input);
 
+        carList = new ArrayList<>();
         /** 차량의 이름을 입력받아 각 차량 객체를 만들어서 carList에 저장함 */
         while (carList.size() < carNumber) {
             inputCarName(input);
@@ -53,6 +53,7 @@ public class RacingGame {
 
     /**
      * 차량 갯수를 입력하는 메서드
+     *
      * @param input
      */
     private void inputCarNumber(Scanner input) {
@@ -78,13 +79,33 @@ public class RacingGame {
     }
 
     /**
-     * Car 객체의 생성자를 입력받아 생성하는 메서드
+     * Car 객체의 생성자를 입력받아 생성하는 메서드 (차량이름 중복방지!)
+     *
      * @param sc
      */
     private void inputCarName(Scanner sc) {
         System.out.println("차량이름을 입력하세요: ");
         String carName = sc.next();
-        carList.add(new Car(carName));
+        if (isContain(carName)) {
+            carList.add(new Car(carName));
+        }
+    }
+
+    /**
+     * carList안에 carName이 포함되어 있는지 확인하는 메서드 
+     * @param carName
+     * @return
+     */
+    private boolean isContain(String carName) {
+        boolean isOverlap = carList.stream()
+                .map(Car::getName)
+                .anyMatch(n -> n.equals(carName));
+
+        if (isOverlap) {
+            System.out.println("동일한 차량이름이 존재합니다!");
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -99,6 +120,7 @@ public class RacingGame {
 
     /**
      * 가장 멀리간 차의 위치를 찾는 메서드
+     *
      * @return
      */
     private int getMaxPosition() {
@@ -110,6 +132,7 @@ public class RacingGame {
 
     /**
      * 우승한 차량을 출력해주는 메서드
+     *
      * @param maxPosition
      */
     private void printWinner(int maxPosition) {
