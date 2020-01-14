@@ -15,44 +15,30 @@ import java.util.Random;
  *
  */
 public class Car {
-	
-	private static final int MAX_RANGE = 10;
-	private static final int MIN_POSITION = 0;
-	
-    private final String name;
-    private int position = 0;
-    
-    
-    public Car(String name) {
-        this.name = name.trim();
-        this.position = move();
-    }
-    
-    private int randomRange() {
-    	return new Random().nextInt(MAX_RANGE); 
-    }
-    
-    private boolean increase() {
-    	return randomRange() > 4;
-    }
-    
-    private int move() {
-    	return (increase() ? position+=1 : MIN_POSITION);
-    			
-    }
-    
-   
-    
-    public String getName() {
+
+	private final String name;
+
+	public Car(final String name) {
+		this.name = name;
+	}
+
+
+	private int randomStep() {
+		return new Random().nextInt(10) + 1;
+	}
+
+	private boolean currentState() {
+		int state = randomStep();
+		if (state < 5) {
+			return false;
+		}
+		return true;
+	}
+
+	public String getName() {
 		return name;
 	}
-    
-    public int getPosition() {
-		return position;
+	public int increaseStep() {
+		return currentState() ? 1 : 0;
 	}
-    
-    @Override
-    	public String toString() {
-    	 return name;
-    	}
 }
