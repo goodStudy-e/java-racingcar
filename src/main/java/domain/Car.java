@@ -5,9 +5,9 @@ import java.util.Random;
 /**
  * @ClassName Car
  * 
- * @Version 1.0.0
+ * @Version 2.0.0
  * 
- * @Date 20191210
+ * @Date 20200115
  * 
  * @author asqwklop12
  * 
