@@ -1,5 +1,7 @@
 package model;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -22,22 +24,17 @@ public class Setting {
 	}
 
 	private List<Car> registCar(String str) {
-		List<Car> cars = new ArrayList<>();
-		for (String name : toSetForArray(str)) {
-			Car car = new Car(name);
-			cars.add(car);
+		return toSetForArray(str)
+				.stream()
+				.map(Car :: new)
+				.collect(toList());
 		}
-
-		return cars;
-	}
 
 	public List<Track> regist(String str) {
-		List<Track> tracks = new ArrayList<>();
-		for (Car car : registCar(str)) {
-			Track track = new Track(car);
-			tracks.add(track);
-		}
-
-		return tracks;
+		return registCar(str)
+				.stream()
+				.map(Track :: new)
+				.collect(toList());
+		
 	}
 }

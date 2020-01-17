@@ -1,5 +1,7 @@
 package controller;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +17,7 @@ public class Winner {
 
 	private int winCount(List<Track> tracks) {
 		int max = tracks.get(FIRST).getPosition();
+		
 		for (Track track : tracks) {
 			int current = track.getPosition();
 			if (max < current) {
@@ -25,20 +28,18 @@ public class Winner {
 	}
 
 	private List<String> addWinPlayer(List<Track> tracks, int max) {
-		List<String> winPlayers = new ArrayList<String>();
-
-		for (Track track : tracks) {
-
-			if (max == track.getPosition()) {
-				winPlayers.add(track.getCar().getName());
-			}
-		}
-		return winPlayers;
+		return tracks.stream()
+				.filter(track -> track.getPosition() == max)
+				.map(track-> track.getCar().getName())
+				.collect(toList());
 	}
 
 	public String winner(List<Track> tracks) {
 		int max = winCount(tracks);
-		return WINPLAYER + addWinPlayer(tracks, max).stream().collect(Collectors.joining(COMMA)) + END;
+		return WINPLAYER + addWinPlayer(tracks, max)
+		  .stream()
+		  .collect(Collectors
+				.joining(COMMA)) + END;
 	}
 
 }
