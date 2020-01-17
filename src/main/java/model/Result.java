@@ -9,13 +9,17 @@ public class Result {
 	public static void print(int times, List<Track> tracks) {
 		for (int i = 0; i < times; i++) {
 
-			for (Track track : tracks) {
-				track.currentPosition();
-				System.out.println(track.print());
-			}
+			printTrack(tracks);
 			
 			threeJump();
 			time();	
+		}
+	}
+
+	private static void printTrack(List<Track> tracks) {
+		for (Track track : tracks) {
+			track.currentPosition();
+			System.out.println(track.print());
 		}
 	}
 	
