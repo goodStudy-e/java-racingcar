@@ -16,20 +16,23 @@ import java.util.Random;
  */
 public class Car {
 
+	private final static int MAX = 10;
+	private final static int PAUSE = 5;
+	private final static int UP = 1;
+	private final static int NOT = 0;
 	private final String name;
 
 	public Car(final String name) {
 		this.name = name;
 	}
 
-
 	private int randomStep() {
-		return new Random().nextInt(10) + 1;
+		return new Random().nextInt(MAX);
 	}
 
 	private boolean currentState() {
 		int state = randomStep();
-		if (state < 5) {
+		if (state < PAUSE) {
 			return false;
 		}
 		return true;
@@ -38,7 +41,8 @@ public class Car {
 	public String getName() {
 		return name;
 	}
+
 	public int increaseStep() {
-		return currentState() ? 1 : 0;
+		return currentState() ? UP : NOT;
 	}
 }
