@@ -3,36 +3,35 @@ package model;
 import java.util.List;
 
 import domain.Track;
+import view.OutPut;
 
 public class Result {
-	private static final int THREE_SECOND = 3000;
+	private static final int THREE_SECONDS = 3000;
+
 	public static void print(int times, List<Track> tracks) {
 		for (int i = 0; i < times; i++) {
 
 			printTrack(tracks);
-			
-			threeJump();
-			time();	
+			delayPrint();
 		}
 	}
 
 	private static void printTrack(List<Track> tracks) {
 		for (Track track : tracks) {
-			track.currentPosition();
-			System.out.println(track.print());
+			track.increasePoint();
+			System.out.println(new OutPut().printTrack(track));
 		}
+		threeJump();
 	}
-	
-	private static void time() {
-		
+
+	private static void delayPrint() {
 		try {
-			Thread.sleep(THREE_SECOND);
+			Thread.sleep(THREE_SECONDS);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void threeJump() {
 		System.out.println();
 		System.out.println();

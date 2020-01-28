@@ -16,7 +16,7 @@ import java.util.Random;
  */
 public class Car {
 
-	private final static int MAX = 10;
+	private final static int SEED = 10;
 	private final static int PAUSE = 5;
 	private final static int UP = 1;
 	private final static int NOT = 0;
@@ -27,15 +27,11 @@ public class Car {
 	}
 
 	private int randomStep() {
-		return new Random().nextInt(MAX);
+		return new Random().nextInt(SEED);
 	}
 
 	private boolean currentState() {
-		int state = randomStep();
-		if (state < PAUSE) {
-			return false;
-		}
-		return true;
+		return randomStep() < PAUSE ? false : true;
 	}
 
 	public String getName() {

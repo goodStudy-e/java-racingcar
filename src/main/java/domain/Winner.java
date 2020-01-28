@@ -1,15 +1,13 @@
-package controller;
+package domain;
 
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import domain.Track;
-
 public class Winner {
 
-	private final static String WINPLAYER = "승리자는 ";
+	private final static String WIN_PLAYER_IS = "승리자는 ";
 	private final static String END = "입니다.";
 	private final static int FIRST = 0;
 	private final static String COMMA = ",";
@@ -29,13 +27,13 @@ public class Winner {
 	private List<String> addWinPlayer(List<Track> tracks, int max) {
 		return tracks.stream()
 				.filter(track -> track.getPosition() == max)
-				.map(track-> track.getCar().getName())
+				.map(track-> track.getCarName())
 				.collect(toList());
 	}
 
 	public String winner(List<Track> tracks) {
 		int max = winCount(tracks);
-		return WINPLAYER + addWinPlayer(tracks, max)
+		return WIN_PLAYER_IS + addWinPlayer(tracks, max)
 		  .stream()
 		  .collect(Collectors
 				.joining(COMMA)) + END;
