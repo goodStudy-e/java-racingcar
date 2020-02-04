@@ -4,15 +4,17 @@ import domain.Car;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.joining;
+
 public class OutputUtils {
 
     public static void printWinner(List<Car> carList, int maxPosition) {
-        carList.stream()
+        String winnerCarnames = carList.stream()
                 .filter(n -> n.getPosition() == maxPosition)
                 .map(Car::getName)
                 .sorted()
-                .forEach(n -> System.out.print(n + " "));
-        System.out.println("가 최종 우승했습니다.");
+                .collect(joining(", "));
+        System.out.println(winnerCarnames + "가 최종 우승했습니다.");
     }
 
     public static void printCurrentPosition(List<Car> carList) {
